@@ -2,9 +2,31 @@ if (actions == nil) then
 	reading_name = true
 	dofile("data/scripts/gun/gun_actions.lua")
 end
-local seed = MagicNumbersGetValue("WORLD_SEED")
+
+local function create_xorshift_prng()
+	local g = {
+		state = 0xdeadbeef,
+		seed = function(self, num)
+			if num then
+				self.state = tonumber(num)
+			end
+		end,
+		next_int = function(self)
+			local x = self.state
+			x = bit.bxor(x, bit.lshift(x, 13))
+			x = bit.bxor(x, bit.rshift(x, 17))
+			x = bit.bxor(x, bit.lshift(x, 5))
+			self.state = x
+			return x
+		end,
+	}
+	return g
+end
+local rng = create_xorshift_prng()
+rng:seed(StatsGetValue("gold"))
+
 for k, v in pairs(actions) do
-	local pass = ((seed + k) % 10 == 0)
+	local pass = ((rng:next_int()) % 10 == 0)
 	if (v.type == ACTION_TYPE_MODIFIER and pass) then
 		pretty_print = dofile("mods/evaisa.enchantments/files/scripts/pretty_print.lua")
 
@@ -40,4 +62,3 @@ for k, v in pairs(actions) do
 		})
 	end
 end
-
