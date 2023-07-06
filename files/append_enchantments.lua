@@ -27,6 +27,10 @@ rng:seed(StatsGetValue("gold"))
 
 for k, v in pairs(actions) do
 	local pass = ((rng:next_int()) % 10 == 0)
+	-- if v.name contains "Eternal" then don't pass
+	if string.find(v.name, "Eternal") then
+		pass = false
+	end
 	if (v.type == ACTION_TYPE_MODIFIER and pass) then
 		pretty_print = dofile("mods/evaisa.enchantments/files/scripts/pretty_print.lua")
 
