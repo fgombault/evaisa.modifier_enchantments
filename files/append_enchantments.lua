@@ -31,6 +31,7 @@ for k, v in pairs(actions) do
 	if string.find(v.name, "Eternal") then
 		pass = false
 	end
+
 	if (v.type == ACTION_TYPE_MODIFIER and pass) then
 		pretty_print = dofile("mods/evaisa.enchantments/files/scripts/pretty_print.lua")
 
@@ -42,8 +43,7 @@ for k, v in pairs(actions) do
 			description = v.description,
 			icon = v.sprite,
 			author = "???",
-			valid_spell_types = { ACTION_TYPE_PROJECTILE, ACTION_TYPE_STATIC_PROJECTILE, ACTION_TYPE_MODIFIER,
-				ACTION_TYPE_DRAW_MANY, ACTION_TYPE_PASSIVE },
+			valid_spell_types = { ACTION_TYPE_PROJECTILE, ACTION_TYPE_STATIC_PROJECTILE },
 			is_stackable = true,
 			card_extra_entities = { v.custom_xml_file },
 			weight = 1.0,
