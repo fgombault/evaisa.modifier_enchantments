@@ -33,9 +33,8 @@ for k, v in pairs(actions) do
 	end
 
 	if (v.type == ACTION_TYPE_MODIFIER and pass) then
-		pretty_print = dofile("mods/evaisa.enchantments/files/scripts/pretty_print.lua")
-
-		--pretty_print.table(v)
+		-- pretty_print = dofile("mods/evaisa.enchantments/files/scripts/pretty_print.lua")
+		-- pretty_print.table(v)
 
 		table.insert(enchantments, {
 			id = v.id .. "_enchantment",
